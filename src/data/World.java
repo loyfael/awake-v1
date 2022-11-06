@@ -32,74 +32,7 @@ public class World {
 	private static int nextPlayerID;
 
 	public static void LoadWorld() {
-		/*boolean junto = false;
-		String LEVEL = "100, 2, null, null, 0, 0, 0d0+2".replace(" ", "");
-		String LEVEL2 = "100, 3, null, null, 0, 0, 0d0+3".replace(" ", "");
-		
-		String finals0 = "";
-		String finals1 = "";
 
-		String[] str = LEVEL.split(",");
-		String str0 = str[0];
-		if (str0.contains("null"))
-			str0 = "-1";
-		String str1 = str[1];
-		if (str1.contains("null"))
-			str1 = "-1";
-		String str2 = str[2];
-		if (str2.contains("null"))
-			str2 = "-1";
-		String str3 = str[3];
-		if (str3.contains("null"))
-			str3 = "-1";
-		String str4 = str[4];
-		if (str4.contains("null"))
-			str4 = "-1";
-		String str5 = str[5];
-		if (str5.contains("null"))
-			str5 = "-1";
-		String str6 = str[6];
-		if (str6.contains("null"))
-			str6 = "-1";
-		finals0 = str0+";"+str1+";"+str2+";"+str3+";"+str4+";"+str5+";"+str6;
-
-		if (LEVEL2 != "") {
-			String[] str7 = LEVEL2.split(",");
-			String str8 = str7[0];
-			if (str8.contains("null"))
-				str8 = "-1";
-			String str9 = str7[1];
-			if (str9.contains("null"))
-				str9 = "-1";
-			String str10 = str7[2];
-			if (str10.contains("null"))
-				str10 = "-1";
-			String str11 = str7[3];
-			if (str11.contains("null"))
-				str11 = "-1";
-			String str12 = str7[4];
-			if (str12.contains("null"))
-				str12 = "-1";
-			String str13 = str7[5];
-			if (str13.contains("null"))
-				str13 = "-1";
-			String str14 = str7[6];
-			if (str14.contains("null"))
-				str14 = "-1";
-			finals1 = str8+";"+str9+";"+str10+";"+str11+";"+str12+";"+str13+";"+str14;
-		}
-		String finalfinal = "";
-		finalfinal = finals0;
-		if (LEVEL2 != "") {
-			if (junto)
-				finalfinal += "|";
-			else
-				finalfinal += ",";
-		}
-		if (finals1 != "")
-			finalfinal += finals1;
-		System.out.println(finalfinal);
-		*/
 		Cmd.println("Database loading...");
 		Cmd.println("Spell loading...");
 		DatabaseManager.LOAD_SORTS();
@@ -118,16 +51,7 @@ public class World {
 		Cmd.println("<< All account and character will be loaded automaticaly >>");
 		nextObjetID = DatabaseManager.getNextObjetID();
 		nextPlayerID = DatabaseManager.getNextPlayerID();
-		 
-		/*
-		String text = "2_5";
-		String[] split = text.split("_");
-		int locd = 0;
-		while(locd < split.length)
-		{
-			System.out.println("LOL "+text.split("_")[locd]);
-			locd += 1;
-		}*/
+
 	}
 
 	public static Spell getSort(int id) {
