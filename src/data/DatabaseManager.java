@@ -200,7 +200,9 @@ public class DatabaseManager {
 			e.printStackTrace();
 			Cmd.println("SQL Error : "+e.getMessage(), Color.RED);
 		} finally {
-			closeResultSet(RS);
+			if (RS != null) {
+				closeResultSet(RS);
+			}
 		}
 	}
 
@@ -234,7 +236,9 @@ public class DatabaseManager {
 			Cmd.println("SQL Error : "+e.getMessage(), Color.RED);
 			return false;
 		} finally {
-			closePreparedStatement(p);
+			if (p != null) {
+				closePreparedStatement(p);
+			}
 		}
 	}
 
@@ -251,7 +255,9 @@ public class DatabaseManager {
 			Cmd.println("SQL Error : "+e.getMessage(), Color.RED);
 			return false;
 		} finally {
-			closePreparedStatement(p);
+			if (p != null) {
+				closePreparedStatement(p);
+			}
 		}
 	}
 
@@ -266,7 +272,9 @@ public class DatabaseManager {
 			System.out.println("Game: SQL ERROR: "+e.getMessage());
 			System.exit(1);
 		} finally {
-			closeResultSet(RS);
+			if (RS != null) {
+				closeResultSet(RS);
+			}
 		}
 	}
 
@@ -315,7 +323,9 @@ public class DatabaseManager {
 			System.out.println("Character could not be saved");
 			System.exit(1);
 		} finally {
-			closePreparedStatement(p);
+			if (p != null) {
+				closePreparedStatement(p);
+			}
 			commitTransacts();
 		}
 	}
@@ -337,7 +347,9 @@ public class DatabaseManager {
 			System.out.println("[REQUEST]: \n"+req);
 			System.exit(1);
 		} finally {
-			closeResultSet(RS);
+			if (RS != null) {
+				closeResultSet(RS);
+			}
 		}
 	}
 
@@ -352,7 +364,9 @@ public class DatabaseManager {
 			System.out.println("Game: SQL ERROR: "+e.getMessage());
 			System.exit(1);
 		} finally {
-			closeResultSet(RS);
+			if (RS != null) {
+				closeResultSet(RS);
+			}
 		}
 	}
 
@@ -402,7 +416,9 @@ public class DatabaseManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			closePreparedStatement(p);
+			if (p != null) {
+				closePreparedStatement(p);
+			}
 			commitTransacts();
 		}
 	}
@@ -420,7 +436,9 @@ public class DatabaseManager {
 			System.out.println("Game: SQL ERROR: "+e.getMessage());
 			System.exit(1);
 		} finally {
-			closeResultSet(RS);
+			if (RS != null) {
+				closeResultSet(RS);
+			}
 		}
 		return 0;
 	}
@@ -438,7 +456,9 @@ public class DatabaseManager {
 			System.out.println("Game: SQL ERROR: "+e.getMessage());
 			System.exit(1);
 		} finally {
-			closeResultSet(RS);
+			if (RS != null) {
+				closeResultSet(RS);
+			}
 		}
 		return 0;
 	}
@@ -454,7 +474,9 @@ public class DatabaseManager {
 			System.out.println("Game: SQL ERROR: "+e.getMessage());
 			System.exit(1);
 		} finally {
-			closeResultSet(RS);
+			if (RS != null) {
+				closeResultSet(RS);
+			}
 		}
 	}
 
@@ -472,9 +494,10 @@ public class DatabaseManager {
 			System.out.println("Game: SQL ERROR: "+e.getMessage());
 			e.printStackTrace();
 		} finally {
-			closeResultSet(RS);
+			if (RS != null) {
+				closeResultSet(RS);
+			}
 		}
-		return;
 	}
 
 	public static void LOAD_NPC_TEMPLATE() {
@@ -501,7 +524,9 @@ public class DatabaseManager {
 			System.out.println("Game: SQL ERROR: "+e.getMessage());
 			System.exit(1);
 		} finally {
-			closeResultSet(RS);
+			if (RS != null) {
+				closeResultSet(RS);
+			}
 		}
 	}
 
@@ -516,7 +541,9 @@ public class DatabaseManager {
 			System.out.println("Game: SQL ERROR: "+e.getMessage());
 			System.exit(1);
 		} finally {
-			closeResultSet(RS);
+			if (RS != null) {
+				closeResultSet(RS);
+			}
 		}
 	}
 
@@ -537,7 +564,9 @@ public class DatabaseManager {
 			System.out.println("Game: SQL ERROR: "+e.getMessage());
 			System.exit(1);
 		} finally {
-			closeResultSet(RS);
+			if (RS != null) {
+				closeResultSet(RS);
+			}
 		}
 	}
 
@@ -552,7 +581,9 @@ public class DatabaseManager {
 			System.out.println("Game: SQL ERROR: "+e.getMessage());
 			e.printStackTrace();
 		} finally {
-			closeResultSet(RS);
+			if (RS != null) {
+				closeResultSet(RS);
+			}
 		}
 	}
 
@@ -627,7 +658,6 @@ public class DatabaseManager {
 
 			System.out.println("SortData parseSortStats" + e);
 			return null;
-
 		}
 	}
 
@@ -650,13 +680,5 @@ public class DatabaseManager {
 			System.out.println("SQL ERROR(CellData): " + e.getMessage());
 		}
 		return null;
-	}
-
-	public static ResultSet getRS() {
-		return RS;
-	}
-
-	public static void setRS(ResultSet RS) {
-		DatabaseManager.RS = RS;
 	}
 }

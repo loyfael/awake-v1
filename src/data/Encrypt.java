@@ -1,5 +1,6 @@
 package data;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
@@ -13,7 +14,7 @@ public class Encrypt {
 	public static String toUtf(String _in) {
 		String _out = "";
 		try {
-			_out = new String(_in.getBytes("UTF8"));
+			_out = new String(_in.getBytes(StandardCharsets.UTF_8));
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -56,7 +57,7 @@ public class Encrypt {
 	}
 
 	public static String CryptPassword(String Key, String Password) {
-		String _Crypted = "#1";
+		StringBuilder _Crypted = new StringBuilder("#1");
 		for (int i = 0; i < Password.length(); i++) {
 			char PPass = Password.charAt(i);
 			char PKey = Key.charAt(i);
@@ -64,10 +65,10 @@ public class Encrypt {
 			int AKey = (int)PPass % 16;
 			int ANB = (APass + (int)PKey) % HASH.length;
 			int ANB2 = (AKey + (int)PKey) % HASH.length;
-			_Crypted += HASH[ANB];
-			_Crypted += HASH[ANB2];
+			_Crypted.append(HASH[ANB]);
+			_Crypted.append(HASH[ANB2]);
 		}
-		return _Crypted;
+		return _Crypted.toString();
 	}
 
 	public static String cellID_To_Code(int cellID) {
