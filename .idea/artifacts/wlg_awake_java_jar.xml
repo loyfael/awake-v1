@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="wlg-awake-java:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/wlg_awake_java_jar</output-path>
+    <output-path>$PROJECT_DIR$/out/artifacts</output-path>
     <root id="archive" name="wlg-awake-java.jar">
       <element id="module-output" name="wlg-awake-java" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../libs/commons-configuration-1.6.jar" path-in-jar="/" />

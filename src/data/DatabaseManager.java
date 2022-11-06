@@ -31,18 +31,19 @@ import com.mysql.jdbc.exceptions.MySQLNonTransientConnectionException;
 
 public class DatabaseManager {
 	private static Connection Connection;
-	private static Lock myConnectionLocker = new ReentrantLock();
+	private static final Lock ConnectionLocker = new ReentrantLock();
 	private static Timer timerCommit;
 	private static boolean needCommit;
+	private static ResultSet RS;
 
 	public static boolean setUpConnexion() {
 		try {
-			myConnectionLocker.lock();
+			ConnectionLocker.lock();
 			Connection = DriverManager.getConnection("jdbc:mysql://" + Config.DB_HOST + "/" + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
 			Connection.setAutoCommit(false);
 			if (!Connection.isValid(1000)) {
 				if(Config.DEBUG)
-					Cmd.println("SQLError : Conexion a la BD invalida !", Color.RED);
+					Cmd.println("SQLError : Connexion à la bdd invalide !", Color.RED);
 				return false;
 			}
 			needCommit = false;
@@ -52,7 +53,7 @@ public class DatabaseManager {
 			Cmd.println("SQL ERROR: " + e.getMessage());
 			e.printStackTrace();
 		} finally {
-			myConnectionLocker.unlock();
+			ConnectionLocker.unlock();
 		}
 		return false;
 	}
@@ -76,20 +77,20 @@ public class DatabaseManager {
 
 	public static void commitTransacts() {
 		try {
-			myConnectionLocker.lock();
+			ConnectionLocker.lock();
 			Connection().commit();
 		} catch (SQLException e) {
 			if(Config.DEBUG)
 				Cmd.println("SQL ERROR:" + e.getMessage(), Color.RED);
 			e.printStackTrace();
 		} finally {
-			myConnectionLocker.unlock();
+			ConnectionLocker.unlock();
 		}
 	}
 
 	public static Connection Connection(){ //Skryn Return
 		try{
-			myConnectionLocker.lock();
+			ConnectionLocker.lock();
 			boolean valid = true;
 			try {
 				valid = !Connection.isClosed();
@@ -102,7 +103,7 @@ public class DatabaseManager {
 			}
 			return Connection;
 		} finally {
-			myConnectionLocker.unlock();
+			ConnectionLocker.unlock();
 		}
 	}
 
@@ -110,10 +111,10 @@ public class DatabaseManager {
 		try {
 			commitTransacts();
 			try{
-				myConnectionLocker.lock();
+				ConnectionLocker.lock();
 				Connection.close();
 			} finally {
-				myConnectionLocker.unlock();
+				ConnectionLocker.unlock();
 			}
 		} catch (Exception e) {
 			Cmd.println("Error, closing SQL connections:"+ e.getMessage(), Color.RED);
@@ -140,9 +141,6 @@ public class DatabaseManager {
 		try {
 			p.clearParameters();
 			p.close();
-			if (p != null) {
-				p = null;
-			}
 		} catch(MySQLNonTransientConnectionException ex) {
 			setUpConnexion();
 		} catch (SQLException ex) {
@@ -151,12 +149,9 @@ public class DatabaseManager {
 	}
 
 	public static void closeResultSet(ResultSet RS) {
+		DatabaseManager.RS = RS;
 		try {
-			RS.getStatement().close();
 			RS.close();
-			if (RS != null) {
-				RS = null;
-			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -176,7 +171,9 @@ public class DatabaseManager {
 			e.printStackTrace();
 			Cmd.println("SQL Error : "+e.getMessage(), Color.RED);
 		} finally {
-			closeResultSet(RS);
+			if (RS != null) {
+				closeResultSet(RS);
+			}
 		}
 	}
 
@@ -562,7 +559,7 @@ public class DatabaseManager {
 	public static void LOAD_SORTS() {
 		ResultSet RS = null;
 		try {
-			RS = executeQuery("SELECT  * from sorts;");
+			RS = executeQuery("SELECT * FROM sorts;");
 			while(RS.next()) {
 				int id = RS.getInt("id");
 				Spell spell = new Spell(id, RS.getString("nom"), RS.getInt("sprite"), RS.getString("spriteInfos"), RS.getString("effectTarget"));
@@ -590,7 +587,9 @@ public class DatabaseManager {
 			System.out.println("Game: SQL ERROR: "+e.getMessage());
 			System.exit(1);
 		} finally {
-			closeResultSet(RS);
+			if (RS != null) {
+				closeResultSet(RS);
+			}
 		}
 	}
 
@@ -651,5 +650,13 @@ public class DatabaseManager {
 			System.out.println("SQL ERROR(CellData): " + e.getMessage());
 		}
 		return null;
+	}
+
+	public static ResultSet getRS() {
+		return RS;
+	}
+
+	public static void setRS(ResultSet RS) {
+		DatabaseManager.RS = RS;
 	}
 }

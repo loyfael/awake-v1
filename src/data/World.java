@@ -232,7 +232,7 @@ public class World {
 	}
 
 	public static Player getPersoByName(String name) {
-		ArrayList<Player> Ps = new ArrayList<Player>();
+		ArrayList<Player> Ps = new ArrayList<>();
 		Ps.addAll(Personnages.values());
 		for(Player P : Ps)
 			if(P.getName().equalsIgnoreCase(name))
@@ -240,7 +240,7 @@ public class World {
 		return null;
 	}
 
-	public static class Couple<L,R> {
+/*	public static class Couple<L,R> {
 		public L first;
 		public R second;
 
@@ -248,5 +248,5 @@ public class World {
 			this.first = s;
 			this.second = i;
 		}
-	}
+	}*/
 }
