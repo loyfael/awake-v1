@@ -120,19 +120,16 @@ public class SocketManager {
 	}
 
 	public void MULTI_SEND_Af_PACKETs() {
-		StringBuilder packet = new StringBuilder();
-		packet.append("Af").append(1).append("|").append(1).append("|").append(1).append("|").append(1).append("|").append(1);
-		send(packet.toString());
+		send("Af" + 1 + "|" + 1 + "|" + 1 + "|" + 1 + "|" + 1);
 	}
 
 	public void REALM_SEND_Ad_Ac_AH_AlK_AQ_PACKETS() {
-		StringBuilder packet = new StringBuilder();
-		packet.append("Ad").append(compte.getPseudo()).append((char)0x00);
-		packet.append("Ac0").append((char)0x00);
-		packet.append("AH1;").append(1).append(";110;1").append((char)0x00);
-		packet.append("AlK").append(1).append((char)0x00); //GmLevel test
-		packet.append("AQ").append(compte.get_question().replace(" ", "+"));
-		send(packet.toString());
+		String packet = "Ad" + compte.getPseudo() + (char) 0x00 +
+				"Ac0" + (char) 0x00 +
+				"AH1;" + 1 + ";110;1" + (char) 0x00 +
+				"AlK" + 1 + (char) 0x00 + //GmLevel test
+				"AQ" + compte.get_question().replace(" ", "+");
+		send(packet);
 	}
 
 	public void REALM_SEND_ALREADY_CONNECTED() {
@@ -157,7 +154,7 @@ public class SocketManager {
 			packet.append((perso.getColor3()==-1?"-1":Integer.toHexString(perso.getColor3()))).append(";");
 			packet.append((perso.getColor4()==-1?"-1":Integer.toHexString(perso.getColor4()))).append(";");
 			packet.append((perso.getColor5()==-1?"-1":Integer.toHexString(perso.getColor5()))).append(";");
-			packet.append(perso.getGMStuffString()+";0;1;0;");
+			packet.append(perso.getGMStuffString()).append(";0;1;0;");
 		}
 		send(packet.toString());
 
@@ -219,20 +216,20 @@ public class SocketManager {
 			}
 		}
 		packet.append("As"); //Nom du packet A = Account s = Stats
-		packet.append(p.xpString(",")).append("|"); //Xp max
-		packet.append(10).append("|"); //Kamas
-		packet.append(0).append("|"); //Capital
-		packet.append(p.get_spellPts()).append("|"); //Spell Points
-		packet.append("1~1").append(","); //Alignements
-		packet.append("0").append(","); //Alignement Level
-		packet.append("0").append(","); //Grade
-		packet.append("0").append(","); //Honneur
-		packet.append("0").append(","); //Deshonneur
-		packet.append("0").append("|"); //Activer ou pas ailes
-		packet.append(pdv).append(","); //PDv min
-		packet.append(pdvMax).append("|"); //Pdv max
-		packet.append("50").append(","); //Energie actuel
-		packet.append("100").append("|"); //Energie max
+		packet.append(p.xpString(",")).append("|"); // Xp max
+		packet.append(10).append("|"); // Kamas
+		packet.append(0).append("|"); // Capital
+		packet.append(p.get_spellPts()).append("|"); // Spell Points
+		packet.append("1~1").append(","); // Alignements
+		packet.append("0").append(","); // Alignement Level
+		packet.append("0").append(","); // Grade
+		packet.append("0").append(","); // Honneur
+		packet.append("0").append(","); // Deshonneur
+		packet.append("0").append("|"); // Activer ou pas ailes
+		packet.append(pdv).append(","); // Pdv min
+		packet.append(pdvMax).append("|"); // Pdv max
+		packet.append("50").append(","); // Energie actuel
+		packet.append("100").append("|"); // Energie max
 		packet.append(p.getInitiative()).append("|"); //Initiative
 		packet.append(p._baseStats.getEffect(Constant.STATS_ADD_PROS)+((int)Math.ceil(p._baseStats.getEffect(Constant.STATS_ADD_CHAN)/10))+p.getBuffsStats().getEffect(Constant.STATS_ADD_PROS)).append("|");
 		packet.append(p._baseStats.getEffect(Constant.STATS_ADD_PA)).append(",").append(0).append(",").append(p.getDonsStats().getEffect(Constant.STATS_ADD_PA)).append(",").append(p.getBuffsStats().getEffect(Constant.STATS_ADD_PA)).append(",").append(p.getTotalStats().getEffect(Constant.STATS_ADD_PA)).append("|");
@@ -247,17 +244,16 @@ public class SocketManager {
 	}
 
 	public static void GAME_SEND_ASK(Player perso) {
-		StringBuilder packet = new StringBuilder();
-		packet.append("ASK|").append(perso.getId()).append("|").append(perso.getName()).append("|");
-		packet.append(perso.getLevel()).append("|").append("-1").append("|").append(perso.getSexe());
-		packet.append("|").append(perso.getGfxID()).append("|");
-		packet.append((perso.getColor1()==-1?"-1":Integer.toHexString(perso.getColor1()))).append("|");
-		packet.append((perso.getColor2()==-1?"-1":Integer.toHexString(perso.getColor2()))).append("|");
-		packet.append((perso.getColor3()==-1?"-1":Integer.toHexString(perso.getColor3()))).append("|");
-		packet.append((perso.getColor4()==-1?"-1":Integer.toHexString(perso.getColor4()))).append("|");
-		packet.append((perso.getColor5()==-1?"-1":Integer.toHexString(perso.getColor5()))).append("|");
-		packet.append(perso.parseItemToASK());
-		send(perso, packet.toString());
+		String packet = "ASK|" + perso.getId() + "|" + perso.getName() + "|" +
+				perso.getLevel() + "|" + "-1" + "|" + perso.getSexe() +
+				"|" + perso.getGfxID() + "|" +
+				(perso.getColor1() == -1 ? "-1" : Integer.toHexString(perso.getColor1())) + "|" +
+				(perso.getColor2() == -1 ? "-1" : Integer.toHexString(perso.getColor2())) + "|" +
+				(perso.getColor3() == -1 ? "-1" : Integer.toHexString(perso.getColor3())) + "|" +
+				(perso.getColor4() == -1 ? "-1" : Integer.toHexString(perso.getColor4())) + "|" +
+				(perso.getColor5() == -1 ? "-1" : Integer.toHexString(perso.getColor5())) + "|" +
+				perso.parseItemToASK();
+		send(perso, packet);
 	}
 
 	public void GAME_SEND_CREATE_FAILED() {
@@ -279,7 +275,7 @@ public class SocketManager {
 		send(p,packet);
 	}
 
-	public static void GAME_SEND_TITLES2(Player p, String str, int titulo) {
+	public static void GAME_SEND_TITLES2(Player p, String str, int title) {
 		String packet = "wTL";
 		send(p,packet);
 	}
@@ -331,11 +327,6 @@ public class SocketManager {
 		String packet = "OAKO"+obj.parseItem();
 		send(out,packet);
 	}
-
-/*	public static void SEND_OAKO_PACKET(Player out, Item obj) {
-		String packet = "OAKO" + obj.parseItem();
-		send(out, packet);
-	}*/
 
 	public static void GAME_SEND_cMK_PACKET(Player perso, String suffix, int guid, String name, String msg) {
 		String packet = "cMK"+suffix+"|"+guid+"|"+name+"|"+msg;
@@ -598,7 +589,7 @@ public class SocketManager {
 				packet.append("1");
 				continue;
 			} else
-				packet.append("0;").append(f.getPDV()+";").append(f.getPA()+";").append(f.getPM()+";");
+				packet.append("0;").append(f.getPDV()).append(";").append(f.getPA()).append(";").append(f.getPM()).append(";");
 			packet.append(f.get_fightCell().getID()).append(";");//On envoie pas la cell d'un invisible :p
 			packet.append(";");//??
 			packet.append(f.getPDVMAX());
@@ -651,9 +642,7 @@ public class SocketManager {
 	}
 
 	public static void GAME_SEND_GJK_PACKET(Player out, int state, int cancelBtn, int duel, int spec, long time, int unknown) {
-		StringBuilder packet = new StringBuilder();
-		packet.append("GJK").append(state).append("|").append(cancelBtn).append("|").append(duel).append("|").append(spec).append("|").append(time).append("|").append(unknown);
-		send(out,packet.toString());
+		send(out, "GJK" + state + "|" + cancelBtn + "|" + duel + "|" + spec + "|" + time + "|" + unknown);
 	}
 
 	public static void GAME_SEND_FIGHT_PLACES_PACKET(Player out, String places, int team) {
@@ -784,8 +773,8 @@ public class SocketManager {
 
 	public static void GAME_SEND_FIGHT_SHOW_CASE(ArrayList<Player> PWs, int guid, int cellID) {
 		String packet = "Gf"+guid+"|"+cellID;
-		for (int i = 0; i < PWs.size(); i++) {
-			send(PWs.get(i),packet);
+		for (Player pw : PWs) {
+			send(pw, packet);
 		}
 	}
 
@@ -805,15 +794,11 @@ public class SocketManager {
 	}
 
 	public static void GAME_SEND_GAME_ADDFLAG_PACKET_TO_PLAYER(Player p, Map map, int arg1, int guid1, int guid2, int cell1, String str1, int cell2, String str2) {
-		StringBuilder packet = new StringBuilder();
-		packet.append("Gc+").append(guid1).append(";").append(arg1).append("|").append(guid1).append(";").append(cell1).append(";").append(str1).append("|").append(guid2).append(";").append(cell2).append(";").append(str2);
-		send(p,packet.toString());
+		send(p, "Gc+" + guid1 + ";" + arg1 + "|" + guid1 + ";" + cell1 + ";" + str1 + "|" + guid2 + ";" + cell2 + ";" + str2);
 	}
 
 	public static void GAME_SEND_ADD_IN_TEAM_PACKET_TO_PLAYER(Player p, Map map, int teamID, Fighter perso) {
-		StringBuilder packet = new StringBuilder();
-		packet.append("Gt").append(teamID).append("|+").append(perso.getGUID()).append(";").append(perso.getPacketsName()).append(";").append(perso.get_lvl());
-		send(p,packet.toString());
+		send(p, "Gt" + teamID + "|+" + perso.getGUID() + ";" + perso.getPacketsName() + ";" + perso.get_lvl());
 	}
 
 	public static void GAME_SEND_MAP_START_DUEL_TO_MAP(Map map, int guid, int guid2) {
@@ -946,9 +931,9 @@ public class SocketManager {
 	public static String getServerDate() {
 		Date actDate = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("dd");
-		String jour = Integer.parseInt(dateFormat.format(actDate))+"";
+		StringBuilder jour = new StringBuilder(Integer.parseInt(dateFormat.format(actDate)) + "");
 		while(jour.length() <2) {
-			jour = "0"+jour;
+			jour.insert(0, "0");
 		}
 		dateFormat = new SimpleDateFormat("MM");
 		String mois = (Integer.parseInt(dateFormat.format(actDate))-1)+"";
