@@ -503,11 +503,11 @@ public class Player {
 		str.append(0);
 		str.append(",0");
 		str.append(";");
-		str.append((_color1==-1?"-1":Integer.toHexString(_color1))).append(";");
-		str.append((_color2==-1?"-1":Integer.toHexString(_color2))).append(";");
-		str.append((_color3==-1?"-1":Integer.toHexString(_color3))).append(";");
-		str.append((_color4==-1?"-1":Integer.toHexString(_color4))).append(";");
-		str.append((_color5==-1?"-1":Integer.toHexString(_color5))).append(";");
+		str.append((_color1 == -1 ? "-1" : Integer.toHexString(_color1))).append(";");
+		str.append((_color2 == -1 ? "-1" : Integer.toHexString(_color2))).append(";");
+		str.append((_color3 == -1 ? "-1" : Integer.toHexString(_color3))).append(";");
+		str.append((_color4 == -1 ? "-1" : Integer.toHexString(_color4))).append(";");
+		str.append((_color5 == -1 ? "-1" : Integer.toHexString(_color5))).append(";");
 		str.append(getGMStuffString()).append(";");//Pelo,Sombrero,??, Camiseta,Pantalones,Botas
 		str.append("0").append(";"); //Aura
 		str.append(";").append(";"); //Emotes Emotes Timer

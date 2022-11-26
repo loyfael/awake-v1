@@ -41,6 +41,7 @@ public class Cmd {
 			return color;
 		}
 	}
+	
 	public static void clear() {
         AnsiConsole.out.print("\033[H\033[2J");
     }
