@@ -2,7 +2,7 @@
 
 **Status:** ❌ *Abandoned*  
 **Type:** 100% Spaghetti Code  
-**Main Language:** A cursed mix of Java, PHP, and broken dreams  
+**Main Language:** A cursed mix of Java and broken dreams  
 **Original Goal:** Build a functional server emulator for *Wakfu Les Gardiens*
 
 ---
